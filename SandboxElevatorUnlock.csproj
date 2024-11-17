@@ -44,6 +44,15 @@
       
       <MakeDir Directories="$(PluginDestinationDir)" />
      
-      <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(PluginDestinationDir)" SkipUnchangedFiles="$(SkipCopyUnchangedFiles)" OverwriteReadOnlyFiles="$(OverwriteReadOnlyFiles)" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" UseHardlinksIfPossible="$(CreateHardLinksForCopyFilesToOutputDirectoryIfPossible)" UseSymboliclinksIfPossible="$(CreateSymbolicLinksForCopyFilesToOutputDirectoryIfPossible)" ErrorIfLinkFails="$(ErrorIfLinkFailsForCopyFilesToOutputDirectory)" Condition="'$(CopyBuildOutputToOutputDirectory)' == 'true' and '$(SkipCopyBuildProduct)' != 'true'" />
+      <Copy SourceFiles="@(IntermediateAssembly)" 
+            DestinationFolder="$(PluginDestinationDir)" 
+            SkipUnchangedFiles="$(SkipCopyUnchangedFiles)" 
+            OverwriteReadOnlyFiles="$(OverwriteReadOnlyFiles)" 
+            Retries="$(CopyRetryCount)" 
+            RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" 
+            UseHardlinksIfPossible="$(CreateHardLinksForCopyFilesToOutputDirectoryIfPossible)" 
+            UseSymboliclinksIfPossible="$(CreateSymbolicLinksForCopyFilesToOutputDirectoryIfPossible)" 
+            ErrorIfLinkFails="$(ErrorIfLinkFailsForCopyFilesToOutputDirectory)" 
+            Condition="'$(CopyBuildOutputToOutputDirectory)' == 'true' and '$(SkipCopyBuildProduct)' != 'true'" />
   </Target>
 </Project>

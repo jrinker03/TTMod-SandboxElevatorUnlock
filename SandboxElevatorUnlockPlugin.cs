@@ -45,7 +45,7 @@ namespace SandboxElevatorUnlock
                     {
                         Logger.LogInfo($"Unlocking strata {i}.");
                         elevatorInstance.UpdateDigTier(i, false);
-                        elevatorInstance.digPoints = elevatorInstance.targetDigPoints;
+                        elevatorInstance.digPoints = elevatorInstance.targetDigPoints + 1;
                     }
                 }
             }
