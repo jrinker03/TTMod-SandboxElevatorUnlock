@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+      
+    <!-- Default location of Techtonica installation. -->
+    <GameInstalltionPath>D:\Steam\steamapps\common\Techtonica</GameInstalltionPath>
+  </PropertyGroup>
+    
+  <!-- Allows for setting an environment variable to override the above default game installation path -->
+  <PropertyGroup Condition=" '$(TTInstallationPath)' != '' ">
+    <GameInstalltionPath>$(TTInstallationPath)</GameInstalltionPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(GameInstalltionPath)\BepInEx\core\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(GameInstalltionPath)\Techtonica_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(GameInstalltionPath)\Techtonica_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="BepInEx">
+      <HintPath>$(GameInstalltionPath)\BepInEx\core\BepInEx.dll</HintPath>
+    </Reference>
+    <Reference Include="EMUAdditions">
+      <HintPath>D:\Steam\steamapps\common\Techtonica\BepInEx\plugins\EMUAdditions\EMUAdditions.dll</HintPath>
+    </Reference>
+    <Reference Include="EquinoxsModUtils">
+      <HintPath>$(GameInstalltionPath)\BepInEx\plugins\EquinoxsModUtils\EquinoxsModUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(GameInstalltionPath)\Techtonica_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(GameInstalltionPath)\Techtonica_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <Target Name="CopyToGamePluginDir" AfterTargets="CopyFilesToOutputDirectory">
+      <PropertyGroup>
+          <PluginDestinationDir>$(GameInstalltionPath)\BepInEx\plugins\$(MSBuildProjectName)</PluginDestinationDir>
+      </PropertyGroup>
+      
+      <MakeDir Directories="$(PluginDestinationDir)"/>
+     
+      <Copy SourceFiles="@(IntermediateAssembly)" 
+            DestinationFolder="$(PluginDestinationDir)" 
+            SkipUnchangedFiles="$(SkipCopyUnchangedFiles)"
+            OverwriteReadOnlyFiles="$(OverwriteReadOnlyFiles)"
+            Retries="$(CopyRetryCount)"
+            RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)"
+            UseHardlinksIfPossible="$(CreateHardLinksForCopyFilesToOutputDirectoryIfPossible)"
+            UseSymboliclinksIfPossible="$(CreateSymbolicLinksForCopyFilesToOutputDirectoryIfPossible)"
+            ErrorIfLinkFails="$(ErrorIfLinkFailsForCopyFilesToOutputDirectory)"
+            Condition="'$(CopyBuildOutputToOutputDirectory)' == 'true' and '$(SkipCopyBuildProduct)' != 'true'"
+            />
+  </Target>
+</Project>
