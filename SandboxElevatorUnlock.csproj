@@ -26,9 +26,6 @@
     <Reference Include="BepInEx">
       <HintPath>$(GameInstalltionPath)\BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
-    <Reference Include="EMUAdditions">
-      <HintPath>D:\Steam\steamapps\common\Techtonica\BepInEx\plugins\EMUAdditions\EMUAdditions.dll</HintPath>
-    </Reference>
     <Reference Include="EquinoxsModUtils">
       <HintPath>$(GameInstalltionPath)\BepInEx\plugins\EquinoxsModUtils\EquinoxsModUtils.dll</HintPath>
     </Reference>
@@ -45,18 +42,8 @@
           <PluginDestinationDir>$(GameInstalltionPath)\BepInEx\plugins\$(MSBuildProjectName)</PluginDestinationDir>
       </PropertyGroup>
       
-      <MakeDir Directories="$(PluginDestinationDir)"/>
+      <MakeDir Directories="$(PluginDestinationDir)" />
      
-      <Copy SourceFiles="@(IntermediateAssembly)" 
-            DestinationFolder="$(PluginDestinationDir)" 
-            SkipUnchangedFiles="$(SkipCopyUnchangedFiles)"
-            OverwriteReadOnlyFiles="$(OverwriteReadOnlyFiles)"
-            Retries="$(CopyRetryCount)"
-            RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)"
-            UseHardlinksIfPossible="$(CreateHardLinksForCopyFilesToOutputDirectoryIfPossible)"
-            UseSymboliclinksIfPossible="$(CreateSymbolicLinksForCopyFilesToOutputDirectoryIfPossible)"
-            ErrorIfLinkFails="$(ErrorIfLinkFailsForCopyFilesToOutputDirectory)"
-            Condition="'$(CopyBuildOutputToOutputDirectory)' == 'true' and '$(SkipCopyBuildProduct)' != 'true'"
-            />
+      <Copy SourceFiles="@(IntermediateAssembly)" DestinationFolder="$(PluginDestinationDir)" SkipUnchangedFiles="$(SkipCopyUnchangedFiles)" OverwriteReadOnlyFiles="$(OverwriteReadOnlyFiles)" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" UseHardlinksIfPossible="$(CreateHardLinksForCopyFilesToOutputDirectoryIfPossible)" UseSymboliclinksIfPossible="$(CreateSymbolicLinksForCopyFilesToOutputDirectoryIfPossible)" ErrorIfLinkFails="$(ErrorIfLinkFailsForCopyFilesToOutputDirectory)" Condition="'$(CopyBuildOutputToOutputDirectory)' == 'true' and '$(SkipCopyBuildProduct)' != 'true'" />
   </Target>
 </Project>
