@@ -1,5 +1,6 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
+using EquinoxsModUtils;
 using HarmonyLib;
 
 namespace SandboxElevatorUnlock
@@ -24,8 +25,30 @@ namespace SandboxElevatorUnlock
             Logger.LogInfo($"PluginName: {PluginName}, VersionString: {VersionString} is loading...");
             Harmony.PatchAll();
 
+            EMU.Events.SaveStateLoaded += Events_SaveStateLoaded;
+
             Logger.LogInfo($"PluginName: {PluginName}, VersionString: {VersionString} is loaded.");
             Log = Logger;
+        }
+
+        private void Events_SaveStateLoaded(object sender, System.EventArgs e)
+        {
+            // Sandbox mode is game mode preset 3
+            if (FlowManager.instance.CurrentPreset.uniqueId == 3)
+            {
+                ref ElevatorInstance elevatorInstance = ref ElevatorInstance.GetElevatorForFloor(0).Get();
+                int numStrata = FlowManager.instance.curLevel.strataDefinitions.Length;
+
+                if (elevatorInstance.curDigTier < numStrata - 1)
+                {
+                    for (int i = elevatorInstance.curDigTier + 1; i < numStrata; i++)
+                    {
+                        Logger.LogInfo($"Unlocking strata {i}.");
+                        elevatorInstance.UpdateDigTier(i, false);
+                        elevatorInstance.digPoints = elevatorInstance.targetDigPoints;
+                    }
+                }
+            }
         }
     }
 }
