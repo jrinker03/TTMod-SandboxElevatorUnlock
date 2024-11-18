@@ -25,27 +25,32 @@ namespace SandboxElevatorUnlock
             Logger.LogInfo($"PluginName: {PluginName}, VersionString: {VersionString} is loading...");
             Harmony.PatchAll();
 
-            EMU.Events.SaveStateLoaded += Events_SaveStateLoaded;
+            EMU.Events.GameLoaded += Events_GameLoaded;
 
             Logger.LogInfo($"PluginName: {PluginName}, VersionString: {VersionString} is loaded.");
             Log = Logger;
         }
 
-        private void Events_SaveStateLoaded(object sender, System.EventArgs e)
+        private void Events_GameLoaded()
         {
             // Sandbox mode is game mode preset 3
             if (FlowManager.instance.CurrentPreset.uniqueId == 3)
             {
+                Logger.LogInfo($"Checking elevator unlock states.");
+
                 ref ElevatorInstance elevatorInstance = ref ElevatorInstance.GetElevatorForFloor(0).Get();
                 int numStrata = FlowManager.instance.curLevel.strataDefinitions.Length;
 
                 if (elevatorInstance.curDigTier < numStrata - 1)
                 {
-                    for (int i = elevatorInstance.curDigTier + 1; i < numStrata; i++)
+                    Logger.LogInfo($"Unlocking strata.");
+                    for (int i = elevatorInstance.curDigTier + 1; i <= numStrata; i++)
                     {
-                        Logger.LogInfo($"Unlocking strata {i}.");
-                        elevatorInstance.UpdateDigTier(i, false);
+#if DEBUG
+                        Logger.LogInfo($"Strata {i}.");
+#endif
                         elevatorInstance.digPoints = elevatorInstance.targetDigPoints + 1;
+                        elevatorInstance.UpdateDigTier(i, false);
                     }
                 }
             }
