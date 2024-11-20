@@ -10,7 +10,7 @@ namespace SandboxElevatorUnlock
     {
         private const string MyGUID = "com.jrinker03.SandboxElevatorUnlock";
         private const string PluginName = "SandboxElevatorUnlock";
-        private const string VersionString = "1.0.0";
+        private const string VersionString = "1.0.3";
 
         private static readonly Harmony Harmony = new Harmony(MyGUID);
 

@@ -3,9 +3,12 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
+
+    <Version>1.0.3</Version>  
       
     <!-- Default location of Techtonica installation. -->
     <GameInstalltionPath>D:\Steam\steamapps\common\Techtonica</GameInstalltionPath>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
     
   <!-- Allows for setting an environment variable to override the above default game installation path -->
@@ -35,6 +38,13 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>$(GameInstalltionPath)\Techtonica_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <Target Name="CopyToGamePluginDir" AfterTargets="CopyFilesToOutputDirectory">
